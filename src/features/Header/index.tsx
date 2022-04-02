@@ -1,6 +1,5 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import styled from 'styled-components';
 import { FolderOpenOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
@@ -53,7 +52,7 @@ const Header: React.Fc<HeaderProps> = () => {
                     <ArrowIcon onClick={() => router.back()} />
                 ) : <div />
             }            
-            <Image src="/freetogame-logo.png" height="45" alt="Free to Game" />
+            <img src="/freetogame-logo.png" height="45" alt="Free to Game" />
             <FolderIcon onClick={() => router.push('/favorite')} />
         </NavWithStyle>
     );
