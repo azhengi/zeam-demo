@@ -3,12 +3,16 @@ import type { AppState, AppThunk } from "../../app/store";
 
 import { fetchGameList, GameData } from "./homeAPI";
 
+const STATUS_DONE = "DONE";
+const STATUS_LOADING = "LOADING";
 interface State {
-    gameList: Array<GameData>
+    gameList: Array<GameData>;
+    status: STATUS_DONE | STATUS_LOADING;
 }
 
 const initialState: State = {
-    gameList: []
+    gameList: [],
+    status: STATUS_DONE,
 };
 
 export const getGameList = createAsyncThunk("home/getList", async (params) => {
@@ -21,13 +25,18 @@ export const main = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(getGameList.pending, (state) => {
-            }).addCase(getGameList.fulfilled, (state, action) => {
+        builder
+            .addCase(getGameList.pending, (state) => {
+                state.status = STATUS_LOADING;
+            })
+            .addCase(getGameList.fulfilled, (state, action) => {
                 state.gameList = action.payload;
+                state.status = STATUS_DONE;
             });
     },
 });
 
 export const selectGames = (state: AppState) => state._.gameList;
+export const selectStatus = (state: AppState) => state._.status;
 
 export default main.reducer;

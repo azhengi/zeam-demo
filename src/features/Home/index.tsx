@@ -9,12 +9,8 @@ import Lib from '../LibContainer';
 import {
     getGameList,
     selectGames,
+    selectStatus,
 } from './homeSlice';
-
-const LibContainer = styled.div`
-    display: flex;
-    justify-content: center;
-`;
 
 const RowWithStyle = styled(Row)`
     width: 80%;
@@ -38,18 +34,19 @@ interface LibProps {
 
 const useGamesOrCategories = () => {
     const games = useAppSelector(selectGames);
+    const status = useAppSelector(selectStatus);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(getGameList());
     }, []);
 
-    return { games };
+    return { games, status };
 };
 
 const Home: React.FC<LibProps> = () => {
     const dispatch = useAppDispatch();
-    const { games } = useGamesOrCategories();
+    const { games, status } = useGamesOrCategories();
 
     const fetchGames = (params) => dispatch(getGameList(params));
 
@@ -57,7 +54,7 @@ const Home: React.FC<LibProps> = () => {
         <>
             <CondFilter fetchGames={fetchGames} />
             <Hr />
-            <Lib games={games} />
+            <Lib games={games} status={status} />
         </>
     );
 };

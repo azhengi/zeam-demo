@@ -18,7 +18,7 @@ const IndexPage: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Title>
-                my-steam
+                zeam-demo
             </Title>
             <HomeContainer />
         </div>
