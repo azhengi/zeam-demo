@@ -40,6 +40,10 @@ const FolderIcon = styled(FolderOpenOutlined)`
     }
 `;
 
+const ImageIcon = styled.img`
+    cursor: pointer;
+`;
+
 interface HeaderProps {};
 
 const Header: React.Fc<HeaderProps> = () => {
@@ -52,7 +56,11 @@ const Header: React.Fc<HeaderProps> = () => {
                     <ArrowIcon onClick={() => router.back()} />
                 ) : <div />
             }            
-            <img src="/freetogame-logo.png" height="45" alt="Free to Game" />
+            <ImageIcon 
+                src="/freetogame-logo.png" 
+                height="45" alt="Free to Game" 
+                onClick={() => router.push('/')}
+            />
             <FolderIcon onClick={() => router.push('/favorite')} />
         </NavWithStyle>
     );

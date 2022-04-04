@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Select, Space, Typography } from 'antd';
 import styled, { createGlobalStyle } from 'styled-components';
+import { genres, sortOpts, platformOpts } from './constant';
 
 const { Option } = Select;
 
 const FilterContainer = styled.div`
+    width: 100%;
 `;
 
 const SelectWithStyle = styled(Select)`
@@ -28,13 +30,6 @@ const InjectAntSelectStyle = createGlobalStyle`
         background-color: transparent;
     }
 `;
-
-const _values = [
-    { label: '全部', value: '' },
-    { label: 'Jack', value: 'Jack' },
-    { label: 'Jack2', value: 'Jack2' },
-    { label: 'Jack3', value: 'Jack3' },
-];
 
 interface SelectLabelProps {
     name: string;
@@ -66,27 +61,25 @@ interface Props {
 }
 
 const CondFilter: React.FC<Props> = (props) => {
-    const { genres, fetchGames } = props;
+    const { fetchGames } = props;
+    const [query, setQuery] = useState({});
 
-    const sortOpts = [
-        { label: 'Release Date', value: 'release-date' },
-    ];
-
-    const platformOpts = [
-        {
-            label: 'Windows(PC)',
-            value: 'Windows'
-        },
-        {
-            label: 'Browser(Web)',
-            value: 'Browser'
-        },
-    ];
-
+    useEffect(() => {
+        const keys = Object.keys(query);
+        fetchGames(query);
+    }, [query]);
 
     const handleSelect = (name: string, value: string) => {
-        console.log("")
-        fetchGames({[name]: value});
+        const nextState = JSON.parse(JSON.stringify(query));
+        if (!value) {
+            delete nextState[name];
+            setQuery(() => nextState);
+            return;
+        }
+        
+        setQuery(() => {
+            return Object.assign(nextState, { [name]: value });
+        });
     };
 
     return (
@@ -100,9 +93,9 @@ const CondFilter: React.FC<Props> = (props) => {
                         handleSelect={(selected) => handleSelect('platform', selected)}
                     />
                     <SelectWithLabel
-                        name={'Genre'}
+                        name={'Genres'}
                         values={genres}
-                        handleSelect={(selected) => handleSelect('genre', selected)}
+                        handleSelect={(selected) => handleSelect('category', selected)}
                     />
                     <SelectWithLabel
                         name={'Sort by'}

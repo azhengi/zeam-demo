@@ -5,7 +5,10 @@ const gamesHandler: NextApiHandler = async (request, response) => {
     const { query } = request;
 
     const gamesData = await got.get(
-        `https://www.freetogame.com/api/games${JSON.stringify(query) !== '{}' ? '?' + new URLSearchParams(query) : ''}`
+        `https://www.freetogame.com/api/games`,
+        {
+            searchParams: query
+        }
     ).json();
     response.json({
         data: gamesData,

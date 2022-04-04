@@ -1,7 +1,7 @@
 import type { NextApiHandler } from 'next';
 import got from 'got';
 
-const gamesHandler: NextApiHandler = async (request, response) => {
+const gameHandler: NextApiHandler = async (request, response) => {
     const { id } = request.query;
     const gameData = await got.get(`https://www.freetogame.com/api/game?id=${id}`).json();
     
@@ -12,4 +12,4 @@ const gamesHandler: NextApiHandler = async (request, response) => {
     });
 };
 
-export default gamesHandler;
+export default gameHandler;

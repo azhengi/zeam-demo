@@ -2,12 +2,14 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
 import counterReducer from "../features/counter/counterSlice";
 import homeReducer from "../features/Home/homeSlice";
+import favoriteSlice from "../features/Favorite/favoriteSlice";
 
 export function makeStore() {
     return configureStore({
         reducer: {
             _: homeReducer,
-            counter: counterReducer
+            counter: counterReducer,
+            favorite: favoriteSlice,
         },
     });
 }

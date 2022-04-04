@@ -40,31 +40,22 @@ const useGamesOrCategories = () => {
     const games = useAppSelector(selectGames);
     const dispatch = useAppDispatch();
 
-    const genres = useMemo(() => {
-        const genresValue = [...new Set(games.map((item) => item.genre))];
-        const mapGenres = genresValue.map((item) => ({
-            label: item,
-            value: item,
-        }));
-        return mapGenres;
-    }, []);
-
     useEffect(() => {
         dispatch(getGameList());
     }, []);
 
-    return { games, genres };
+    return { games };
 };
 
 const Home: React.FC<LibProps> = () => {
     const dispatch = useAppDispatch();
-    const { games, genres } = useGamesOrCategories();
+    const { games } = useGamesOrCategories();
 
     const fetchGames = (params) => dispatch(getGameList(params));
 
     return (
         <>
-            <CondFilter genres={genres} fetchGames={fetchGames} />
+            <CondFilter fetchGames={fetchGames} />
             <Hr />
             <Lib games={games} />
         </>
