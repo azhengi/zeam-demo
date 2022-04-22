@@ -33,7 +33,8 @@ const InjectAntSelectStyle = createGlobalStyle`
 
 interface SelectLabelProps {
     name: string;
-    values: Array<{ label: string; value: string; }>
+    values: Array<{ label: string; value: string; }>;
+    handleSelect?: (v: string) => void;
 };
 
 const SelectWithLabel: React.FC<SelectLabelProps> = (props) => {
@@ -56,8 +57,8 @@ const SelectWithLabel: React.FC<SelectLabelProps> = (props) => {
 };
 
 interface Props {
-    genres: SelectLabelProps;
-    fetchGames: any;
+    genres?: SelectLabelProps;
+    fetchGames?: any;
 }
 
 const CondFilter: React.FC<Props> = (props) => {
@@ -67,6 +68,7 @@ const CondFilter: React.FC<Props> = (props) => {
     useEffect(() => {
         const keys = Object.keys(query);
         fetchGames(query);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query]);
 
     const handleSelect = (name: string, value: string) => {

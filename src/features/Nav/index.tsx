@@ -88,6 +88,12 @@ const ImageWrap = (props) => {
 
 interface NavProps {}
 
+interface NavResponseType {
+    data: {
+        attributes: { Lev0: Array<any> }
+    }
+};
+
 const Nav: React.FC<NavProps> = () => {
     const [lev, setLev] = useState([]);
 
@@ -95,8 +101,8 @@ const Nav: React.FC<NavProps> = () => {
         (async () => {
             try {
                 const response = await fetchNavList();
-                if (response?.data?.attributes) {
-                    const { Lev0 } = response?.data?.attributes;
+                if ((response as NavResponseType)?.data?.attributes) {
+                    const { Lev0 } = (response as NavResponseType)?.data?.attributes;
                     setLev(() => Lev0);
                 }
             } catch (err) {
@@ -106,8 +112,8 @@ const Nav: React.FC<NavProps> = () => {
     }, []);
 
     const onClick: MenuProps['onClick'] = (e) => {
-        console.log('click', e.item.props.url);
         const aLink = document.createElement('a');
+        // @ts-ignore
         aLink.setAttribute('href', REDIRECT_HOST + '/' + e?.item?.props?.url);
         aLink.setAttribute('target', '_blank');
         aLink.click();
@@ -123,12 +129,12 @@ const Nav: React.FC<NavProps> = () => {
                             key={item.Heading}
                             title={item.Heading}
                             popupOffset={[0, 0]}
-                            mode="horizontal"
                         >
                             <Menu.ItemGroup title={item.SubHeading1}>
                                 {item.ColumnLinks1.map((linkItem) => (
                                     <Menu.Item
                                         key={linkItem.label + '-sub'}
+                                        // @ts-ignore
                                         url={linkItem.url}
                                     >
                                         {linkItem.label}
@@ -139,6 +145,7 @@ const Nav: React.FC<NavProps> = () => {
                                 {item.ColumnLinks2.map((linkItem) => (
                                     <Menu.Item
                                         key={linkItem.label + '-sub'}
+                                        // @ts-ignore
                                         url={linkItem.url}
                                     >
                                         {linkItem.label}

@@ -47,7 +47,7 @@ const useGamesOrCategories = () => {
 const Home: React.FC<LibProps> = () => {
     const dispatch = useAppDispatch();
     const { games, status } = useGamesOrCategories();
-
+    // @ts-ignore
     const fetchGames = (params) => dispatch(getGameList(params));
 
     return (

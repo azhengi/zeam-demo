@@ -24,7 +24,7 @@ const Lib = (props) => {
                         </Col>
                     )) : (
                         <Col span={24}>
-                            <Skeleton paragraph active rows={5} />
+                            <Skeleton paragraph active />
                         </Col>
                     )
                 }

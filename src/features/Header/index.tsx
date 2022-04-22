@@ -46,7 +46,7 @@ const ImageIcon = styled.img`
 
 interface HeaderProps {};
 
-const Header: React.Fc<HeaderProps> = () => {
+const Header: React.FC<HeaderProps> = () => {
     const router = useRouter();
 
     return (

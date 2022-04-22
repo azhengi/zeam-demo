@@ -7,6 +7,7 @@ const gamesHandler: NextApiHandler = async (request, response) => {
     const gamesData = await got.get(
         `https://www.freetogame.com/api/games`,
         {
+            // @ts-ignore
             searchParams: query
         }
     ).json();

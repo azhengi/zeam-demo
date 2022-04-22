@@ -7,7 +7,7 @@ const STATUS_DONE = "DONE";
 const STATUS_LOADING = "LOADING";
 interface State {
     gameList: Array<GameData>;
-    status: STATUS_DONE | STATUS_LOADING;
+    status: typeof STATUS_DONE | typeof STATUS_LOADING;
 }
 
 const initialState: State = {
